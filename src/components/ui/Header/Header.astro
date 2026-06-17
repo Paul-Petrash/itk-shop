@@ -1,0 +1,132 @@
+---
+import './Header.css';
+import logoSvg     from '../../../assets/logo.svg?url';
+import chevronSvg  from '../../../assets/icons/chevron.svg?raw';
+import lightningSvg from '../../../assets/icons/lightning.svg?raw';
+import burgerSvg   from '../../../assets/icons/burger.svg?raw';
+import searchSvg   from '../../../assets/icons/search.svg?raw';
+import userSvg     from '../../../assets/icons/user.svg?raw';
+import compareSvg  from '../../../assets/icons/compare.svg?raw';
+import heartSvg    from '../../../assets/icons/heart.svg?raw';
+import cartSvg     from '../../../assets/icons/cart.svg?url';
+import Cart from "../../Cart";
+---
+
+<header class="h">
+
+  <!-- top: nav + phone -->
+  <div class="h-t">
+    <div class="wrap">
+      <div class="h-tr">
+
+        <nav>
+          <a href="#">Мобильное приложение</a>
+
+          <div class="ni">
+            <a href="#">Компания <Fragment set:html={chevronSvg} /></a>
+            <div class="drop">
+              <ul>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+                <li><a href="#">Вакансии</a></li>
+                <li><a href="#">Отзывы</a></li>
+                <li><a href="#">Сертификаты</a></li>
+                <li><a href="#">Блог</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <a href="#">Доставка</a>
+          <a href="#">Оплата</a>
+
+          <div class="ni">
+            <a href="#"><Fragment set:html={lightningSvg} />Акции <Fragment set:html={chevronSvg} /></a>
+            <div class="drop">
+              <ul>
+                <li><a href="#">Для новых клиентов</a></li>
+                <li><a href="#">Для всех клиентов</a></li>
+                <li><a href="#">Для школ и учебных учреждений</a></li>
+                <li><a href="#">Самое выгодное</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ni">
+            <a href="#">Услуги <Fragment set:html={chevronSvg} /></a>
+            <div class="drop">
+              <ul>
+                <li><a href="#">Аренда кулеров</a></li>
+                <li><a href="#">Бесплатная аренда кулера</a></li>
+                <li><a href="#">Ремонт кулеров</a></li>
+                <li><a href="#">Санитарная обработка</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <a href="#">Поддержка</a>
+        </nav>
+
+        <div class="ph">
+          <a href="tel:88001111111">8 800 111-11-11</a>
+          <a href="#" class="cb">Заказать звонок</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- main: logo + catalog + search + actions -->
+  <div class="h-m">
+    <div class="wrap">
+      <div class="h-mr">
+
+        <div class="h-ml">
+          <a href="/" class="lg" aria-label="На главную">
+            <img src={logoSvg} alt="ITK Shop" width="138" height="50" decoding="async" fetchpriority="high" />
+          </a>
+          <button class="cat" type="button">
+            <Fragment set:html={burgerSvg} />
+            <span>Каталог</span>
+          </button>
+        </div>
+
+        <form class="sf" action="/catalog/" method="get">
+          <label for="hs" class="sr">Поиск</label>
+          <input id="hs" type="text" name="q" placeholder="Найти" maxlength="50" autocomplete="off" />
+          <button type="submit" aria-label="Найти">
+            <Fragment set:html={searchSvg} />
+          </button>
+        </form>
+
+        <div class="ha">
+          <a href="#"><Fragment set:html={userSvg} /><span>Войти</span></a>
+          <a href="#"><Fragment set:html={compareSvg} /><span>Сравнение</span></a>
+          <a href="#"><Fragment set:html={heartSvg} /><span>Избранное</span></a>
+          <Cart cartSrc={cartSvg} client:load />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom: category tags -->
+  <div class="h-b">
+    <div class="wrap">
+      <div class="tg">
+        <a href="#">Вода 19 литров</a>
+        <a href="#">Кулеры для воды</a>
+        <a href="#">Минеральная</a>
+        <a href="#">Питьевая</a>
+        <a href="#">Функциональная</a>
+        <a href="#">Щелочная</a>
+        <a href="#">Лечебная</a>
+        <a href="#">Детская</a>
+        <a href="#">Родниковая</a>
+        <a href="#">Природная</a>
+        <a href="#">Артезианская</a>
+        <a href="#">Кислородная</a>
+      </div>
+    </div>
+  </div>
+
+</header>

@@ -1,0 +1,67 @@
+---
+import './ProductCard.css';
+import heartSvg   from '../../../assets/icons/heart.svg?raw';
+import compareSvg from '../../../assets/icons/compare.svg?raw';
+import starSvg    from '../../../assets/icons/star.svg?raw';
+
+interface Props {
+  image: string;
+  title: string;
+  href: string;
+  price: number;
+  oldPrice?: number;
+  rating?: number;
+  status?: 'instock' | 'outofstock';
+  article?: string;
+  badge?: string;
+}
+
+const {
+  image, title, href, price,
+  oldPrice, rating, status = 'instock',
+  article, badge,
+} = Astro.props;
+---
+
+<article class="pc">
+
+  <a href={href} class="pc-img-l">
+    <img class="pc-img" src={image} alt={title} loading="lazy" width="240" height="240" />
+    {badge && <span class="pc-bdg">{badge}</span>}
+  </a>
+
+  <div class="pc-info">
+    <div class="pc-pr">
+      <span class="pc-pr-n">{price} ₽</span>
+      {oldPrice && <span class="pc-pr-o">{oldPrice} ₽</span>}
+    </div>
+
+    <a href={href} class="pc-ttl">{title}</a>
+
+    <div class="pc-meta">
+      {rating && (
+        <span class="pc-rt">
+          <Fragment set:html={starSvg} />
+          {rating}
+        </span>
+      )}
+      <span class={`pc-sta ${status}`}>
+        {status === 'instock' ? 'Есть в наличии' : 'Нет в наличии'}
+      </span>
+      {article && <span class="pc-art">Арт. {article}</span>}
+    </div>
+  </div>
+
+  <div class="pc-foot">
+    <button class="pc-btn" type="button">В корзину</button>
+    <div class="pc-act">
+      <button type="button" aria-label="В избранное">
+        <Fragment set:html={heartSvg} />
+      </button>
+      <button type="button" aria-label="Сравнить">
+        <Fragment set:html={compareSvg} />
+      </button>
+    </div>
+  </div>
+
+</article>

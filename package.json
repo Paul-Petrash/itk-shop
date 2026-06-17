@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "itk-shop",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -12,6 +12,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.4.6"
+    "@astrojs/preact": "^5.1.5",
+    "astro": "^6.4.6",
+    "preact": "^10.29.2"
+  },
+"devDependencies": {
+    "sass-embedded": "^1.100.0"
   }
 }
