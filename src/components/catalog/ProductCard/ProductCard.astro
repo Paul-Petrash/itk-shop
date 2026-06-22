@@ -5,6 +5,7 @@ import compareSvg from '@/assets/icons/compare.svg?raw';
 import starSvg    from '@/assets/icons/star.svg?raw';
 
 interface Props {
+  id?: number;
   image: string;
   title: string;
   href: string;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const {
-  image, title, href, price,
+  id, image, title, href, price,
   oldPrice, rating, status = 'instock',
   article, badge,
 } = Astro.props;
@@ -53,7 +54,7 @@ const {
   </div>
 
   <div class="pc-foot">
-    <button class="pc-btn" type="button">В корзину</button>
+    <button class="pc-btn" type="button" data-product-id={id != null ? String(id) : undefined}>В корзину</button>
     <div class="pc-act">
       <button type="button" aria-label="В избранное">
         <Fragment set:html={heartSvg} />

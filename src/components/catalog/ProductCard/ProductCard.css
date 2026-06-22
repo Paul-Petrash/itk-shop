@@ -138,6 +138,49 @@
 
 .pc-btn:hover { background: var(--color-theme-hover); }
 
+/* counter widget (replaces "В корзину" when item is in cart) */
+.pc-counter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--color-theme);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pc-counter-btn {
+  flex-shrink: 0;
+  width: 34px;
+  height: 36px;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-theme);
+  cursor: pointer;
+  transition: background .15s;
+  font-family: inherit;
+}
+
+.pc-counter-btn:hover { background: var(--color-surface); }
+
+.pc-counter-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  text-align: center;
+  font-size: var(--text-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background: none;
+  outline: none;
+  padding: 0;
+}
+
+.pc-counter-input::-webkit-outer-spin-button,
+.pc-counter-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.pc-counter-input[type=number] { -moz-appearance: textfield; }
+
 .pc-act {
   display: flex;
   gap: 4px;
