@@ -1,7 +1,9 @@
 // @ts-check
-import {defineConfig} from 'astro/config';
+import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-    integrations: [preact()]
+  site: process.env.SITE_URL ?? 'https://itk-shop.ru',
+  integrations: [preact(), sitemap()],
 });

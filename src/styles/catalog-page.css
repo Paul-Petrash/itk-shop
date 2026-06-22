@@ -1,0 +1,104 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 0 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.breadcrumb a { color: inherit; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+.cat-h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0.25rem 0 1.25rem;
+}
+
+.cat-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+  .cat-layout { grid-template-columns: 1fr; }
+  .cat-sidebar { display: none; }
+}
+
+.cat-sidebar {
+  position: sticky;
+  top: 1rem;
+}
+
+.cat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* sort */
+.cs-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.cs-select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 7px 32px 7px 12px;
+  font-size: var(--text-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+
+.cs-select:hover,
+.cs-select:focus {
+  border-color: var(--color-theme);
+  outline: none;
+}
+
+.cat-total {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.cat-empty {
+  padding: 3rem 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.cat-empty button {
+  margin-top: 1rem;
+  background: none;
+  border: 1px solid var(--color-theme);
+  color: var(--color-theme);
+  border-radius: var(--radius-md);
+  padding: 8px 20px;
+  font-size: var(--text-base);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.cat-empty button:hover {
+  background: var(--color-theme);
+  color: #fff;
+}

@@ -13,10 +13,11 @@
   },
   "dependencies": {
     "@astrojs/preact": "^5.1.5",
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.6",
     "preact": "^10.29.2"
   },
-"devDependencies": {
+  "devDependencies": {
     "sass-embedded": "^1.100.0"
   }
 }

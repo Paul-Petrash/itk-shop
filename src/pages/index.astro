@@ -1,22 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/ui/Header/Header.astro';
-import Footer from '../components/ui/Footer/Footer.astro';
-import ProductList from '../components/catalog/ProductList/ProductList.astro';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/ui/Header/Header.astro';
+import Footer from '@/components/ui/Footer/Footer.astro';
+import ProductList from '@/components/catalog/ProductList/ProductList.astro';
+import { getProducts } from '@/lib/api';
 
-const products = [
-  { id: 1, image: 'https://placehold.co/240x240', title: 'Вода питьевая негазированная 19 л', href: '#', price: 55, oldPrice: 890, rating: 4.9, article: '123456', badge: '-15%' },
-  { id: 2, image: 'https://placehold.co/240x240', title: 'Кулер для воды напольный VATTEN V45WK', href: '#', price: 890, rating: 4.7, article: '234567' },
-  { id: 3, image: 'https://placehold.co/240x240', title: 'Помпа электрическая для бутыли 19 л', href: '#', price: 290, oldPrice: 1590, rating: 4.8, article: '345678', badge: 'Хит' },
-  { id: 4, image: 'https://placehold.co/240x240', title: 'Стакан одноразовый бумажный 200 мл (100 шт)', href: '#', price: 320, article: '456789' },
-  { id: 5, image: 'https://placehold.co/240x240', title: 'Фильтр-кувшин Барьер Гранд 3.3 л', href: '#', price: 750, oldPrice: 2100, rating: 4.6, article: '567890', badge: 'Акция', status: 'instock' as const },
-];
+const allProducts = await getProducts();
+const featured = allProducts
+  .slice(0, 5)
+  .map(p => ({ ...p, href: `/catalog/${p.categorySlug}/${p.slug}/` }));
 ---
 
-<Layout>
+<Layout
+  title="ITK SHOP — вода и оборудование"
+  description="Интернет-магазин воды и оборудования для водоснабжения. Кулеры, фильтры, помпы с доставкой."
+>
   <Header />
   <main>
-    <ProductList title="Лучшие предложения" titleHref="/catalog/" products={products} />
+    <ProductList title="Лучшие предложения" titleHref="/catalog/" products={featured} />
   </main>
   <Footer />
 </Layout>

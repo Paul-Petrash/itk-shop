@@ -1,0 +1,24 @@
+---
+import './CategoryCard.css';
+
+interface Props {
+  title: string;
+  href: string;
+  image: string;
+  productCount?: number;
+}
+
+const { title, href, image, productCount } = Astro.props;
+---
+
+<a href={href} class="cc">
+  <div class="cc-img-w">
+    <img class="cc-img" src={image} alt={title} loading="lazy" width="360" height="240" />
+  </div>
+  <div class="cc-body">
+    <span class="cc-ttl">{title}</span>
+    {productCount != null && (
+      <span class="cc-cnt">{productCount} товаров</span>
+    )}
+  </div>
+</a>

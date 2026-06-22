@@ -1,0 +1,190 @@
+.cf {
+  width: 100%;
+}
+
+.cf-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cf-heading {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.cf-reset {
+  background: none;
+  border: none;
+  color: var(--color-theme);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cf-reset:hover { text-decoration: underline; }
+
+/* group */
+.cf-group {
+  border-bottom: 1px solid var(--color-border);
+  padding: 2px 0;
+}
+
+.cf-group-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0;
+  background: none;
+  border: none;
+  font-size: var(--text-md);
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  gap: 8px;
+}
+
+.cf-chevron {
+  flex-shrink: 0;
+  transition: transform .2s;
+  color: var(--color-text-muted);
+}
+
+.cf-group-btn.is-collapsed .cf-chevron {
+  transform: rotate(-90deg);
+}
+
+/* price */
+.cf-price {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 14px;
+}
+
+.cf-price-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.cf-price-field input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  font-size: var(--text-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  outline: none;
+  transition: border-color .15s;
+}
+
+.cf-price-field input:focus { border-color: var(--color-theme); }
+
+/* checkboxes */
+.cf-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 14px;
+}
+
+.cf-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 3px 0;
+  user-select: none;
+}
+
+.cf-opt input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cf-opt-box {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+  transition: border-color .15s, background .15s;
+  position: relative;
+}
+
+.cf-opt input:checked ~ .cf-opt-box {
+  background: var(--color-theme);
+  border-color: var(--color-theme);
+}
+
+.cf-opt input:checked ~ .cf-opt-box::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.cf-opt-label {
+  flex: 1;
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+.cf-opt-cnt {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.cf-opt:hover .cf-opt-box {
+  border-color: var(--color-theme);
+}
+
+/* selected count badge */
+.cf-sel-cnt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--color-theme);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* show more */
+.cf-more {
+  background: none;
+  border: none;
+  color: var(--color-theme);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 0;
+  text-align: left;
+}
+
+.cf-more:hover { text-decoration: underline; }

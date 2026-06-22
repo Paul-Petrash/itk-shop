@@ -1,0 +1,127 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/ui/Header/Header.astro';
+import Footer from '@/components/ui/Footer/Footer.astro';
+import ProductCard from '@/components/catalog/ProductCard/ProductCard.astro';
+import CatalogFilters from '@/components/catalog/CatalogFilters/CatalogFilters';
+import { getCategories, getCategory, getProductsByCategory, getFilters } from '@/lib/api';
+import '@/styles/catalog-page.css';
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map(c => ({ params: { categorySlug: c.slug } }));
+}
+
+const { categorySlug } = Astro.params;
+const [category, products, filters] = await Promise.all([
+  getCategory(categorySlug),
+  getProductsByCategory(categorySlug),
+  getFilters(categorySlug),
+]);
+
+if (!category) return Astro.redirect('/catalog/');
+---
+
+<Layout
+  title={`${category.title} — купить в ITK SHOP`}
+  description={`Купить ${category.title.toLowerCase()} с доставкой. ${category.productCount ?? products.length} товаров в наличии. Удобный подбор по фильтрам.`}
+>
+  <Header />
+  <main class="wrap">
+
+    <nav class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemprop="item" href="/"><span itemprop="name">Главная</span></a>
+        <meta itemprop="position" content="1" />
+      </span>
+      <span>/</span>
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemprop="item" href="/catalog/"><span itemprop="name">Каталог</span></a>
+        <meta itemprop="position" content="2" />
+      </span>
+      <span>/</span>
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <span itemprop="name">{category.title}</span>
+        <meta itemprop="position" content="3" />
+      </span>
+    </nav>
+
+    <h1 class="cat-h1">{category.title}</h1>
+
+    <div class="cat-layout">
+
+      <aside class="cat-sidebar">
+        {filters && (
+          <CatalogFilters
+            client:only="preact"
+            groups={filters.groups}
+            priceMin={filters.priceMin}
+            priceMax={filters.priceMax}
+          />
+        )}
+      </aside>
+
+      <div class="cat-main">
+
+        <div class="cat-toolbar">
+          <p class="cat-total">
+            Найдено: <strong id="catalog-count">{products.length}</strong> товаров
+          </p>
+          <label class="cs-label" for="catalog-sort">Сортировка:</label>
+          <select class="cs-select" id="catalog-sort">
+            <option value="">Популярные</option>
+            <option value="price_asc">Дешевле</option>
+            <option value="price_desc">Дороже</option>
+            <option value="rating">Высокий рейтинг</option>
+            <option value="discount">Со скидкой</option>
+          </select>
+        </div>
+
+        <div
+          class="cat-grid"
+          id="catalog-grid"
+          itemscope
+          itemtype="http://schema.org/ItemList"
+        >
+          {products.map((p, i) => (
+            <div
+              class="cat-grid-item"
+              data-id={String(p.id)}
+              data-price={String(p.price)}
+              data-rating={String(p.rating ?? 0)}
+              {...Object.fromEntries(
+                Object.entries(p.filterMeta ?? {}).map(([k, v]) => [
+                  `data-${k}`,
+                  Array.isArray(v) ? v.join(',') : String(v),
+                ])
+              )}
+              itemprop="itemListElement"
+              itemscope
+              itemtype="http://schema.org/Product"
+            >
+              <meta itemprop="name"     content={p.title} />
+              <meta itemprop="position" content={String(i + 1)} />
+              <link itemprop="url"      href={`/catalog/${p.categorySlug}/${p.slug}/`} />
+              <ProductCard
+                {...p}
+                href={`/catalog/${p.categorySlug}/${p.slug}/`}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div class="cat-empty" id="catalog-empty" hidden>
+          <p>По выбранным фильтрам ничего не найдено.</p>
+          <button type="button" id="catalog-reset">Сбросить фильтры</button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import '@/scripts/catalog-filter';
+</script>
