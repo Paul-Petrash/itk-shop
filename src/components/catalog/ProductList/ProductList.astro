@@ -41,4 +41,68 @@ const { title, titleHref = '#', products } = Astro.props;
     </div>
 
   </div>
+  <div class="wrap">
+
+    <div class="pl-hd">
+      <h2 class="pl-ttl">
+        <a href={titleHref}>{title}</a>
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 1l5 5-5 5"/>
+        </svg>
+      </h2>
+    </div>
+
+    <div class="pl-grid">
+      {products.map(p => <ProductCard {...p} />)}
+    </div>
+
+  </div>
+  <div class="wrap">
+
+    <div class="pl-hd">
+      <h2 class="pl-ttl">
+        <a href={titleHref}>{title}</a>
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 1l5 5-5 5"/>
+        </svg>
+      </h2>
+    </div>
+
+    <div class="pl-grid">
+      {products.map(p => <ProductCard {...p} />)}
+    </div>
+
+  </div>
+  <div class="wrap">
+
+    <div class="pl-hd">
+      <h2 class="pl-ttl">
+        <a href={titleHref}>{title}</a>
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 1l5 5-5 5"/>
+        </svg>
+      </h2>
+    </div>
+
+    <div class="pl-grid">
+      {products.map(p => <ProductCard {...p} />)}
+    </div>
+
+  </div>
+  <div class="wrap">
+
+    <div class="pl-hd">
+      <h2 class="pl-ttl">
+        <a href={titleHref}>{title}</a>
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 1l5 5-5 5"/>
+        </svg>
+      </h2>
+    </div>
+
+    <div class="pl-grid">
+      {products.map(p => <ProductCard {...p} />)}
+    </div>
+
+  </div>
 </section>

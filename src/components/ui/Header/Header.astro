@@ -7,9 +7,7 @@ import burgerSvg    from '@/assets/icons/burger.svg?raw';
 import searchSvg    from '@/assets/icons/search.svg?raw';
 import userSvg      from '@/assets/icons/user.svg?raw';
 import cartSvg      from '@/assets/icons/cart.svg?url';
-import Cart    from '@/components/Cart';
-import FavLink from '@/components/FavLink';
-import CmpLink from '@/components/CmpLink';
+import HeaderUI from '@/components/HeaderUI';
 ---
 
 <header class="h">
@@ -100,9 +98,7 @@ import CmpLink from '@/components/CmpLink';
 
         <div class="ha">
           <a href="#" class="js-auth-open"><Fragment set:html={userSvg} /><span>Войти</span></a>
-          <CmpLink client:load />
-          <FavLink client:load />
-          <Cart cartSrc={cartSvg} client:load />
+          <HeaderUI cartSrc={cartSvg} client:load />
         </div>
 
       </div>
