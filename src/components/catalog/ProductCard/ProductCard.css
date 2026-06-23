@@ -204,3 +204,22 @@
   color: var(--color-theme);
   border-color: var(--color-theme);
 }
+
+.pc-fav-btn.is-active {
+  color: #f91155;
+  border-color: #f91155;
+}
+
+.pc-fav-btn.is-active svg {
+  fill: #f91155;
+  stroke: #f91155;
+}
+
+.pc-cmp-btn.is-active {
+  color: var(--color-theme);
+  border-color: var(--color-theme);
+}
+
+.pc-cmp-btn.is-active svg {
+  stroke: var(--color-theme);
+}

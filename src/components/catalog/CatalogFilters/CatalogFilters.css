@@ -159,6 +159,18 @@
   border-color: var(--color-theme);
 }
 
+.cf-opt:has(input:checked) {
+  background: color-mix(in srgb, var(--color-theme) 8%, transparent);
+  border-radius: var(--radius-sm);
+  margin: 0 -6px;
+  padding: 3px 6px;
+}
+
+.cf-opt:has(input:checked) .cf-opt-label {
+  color: var(--color-theme);
+  font-weight: 500;
+}
+
 /* selected count badge */
 .cf-sel-cnt {
   display: inline-flex;

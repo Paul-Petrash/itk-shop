@@ -1,0 +1,348 @@
+/* ── native <dialog> ──────────────────────────────────────────── */
+
+/*
+  showModal() помещает элемент в CSS top-layer — выше любого z-index.
+  ::backdrop — нативный overlay, не нужен отдельный div.
+  body:has(dialog[open]) — блокировка скролла без JS.
+  Фокус-трэп, возврат фокуса и ESC обрабатываются браузером нативно.
+*/
+
+body:has(dialog[open]) { overflow: hidden; }
+
+.am-dialog {
+  border: none;
+  outline: none;
+  padding: 16px;
+  margin: 0;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+/* display только когда открыт — иначе перебивает браузерный display:none */
+.am-dialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* backdrop анимируется отдельно от контента */
+.am-dialog::backdrop {
+  background: rgba(0, 0, 0, .52);
+  animation: am-backdrop .2s ease;
+}
+
+@keyframes am-backdrop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── modal box ── */
+.am-box {
+  position: relative;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  max-width: 440px;
+  width: 100%;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .22);
+  animation: am-slide-up .22s ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+@keyframes am-slide-up {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── close button ── */
+.am-x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color .15s, border-color .15s;
+}
+
+.am-x:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+/* ── tab ── */
+.am-tab { padding: 32px 32px 0; }
+
+/* ── header ── */
+.am-head { margin-bottom: 24px; }
+
+.am-logo {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.am-logo-c { color: var(--color-theme); }
+
+.am-title {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.am-bold { font-weight: 600; }
+
+.am-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── form ── */
+.am-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.am-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.am-label {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.am-req { color: #f91155; }
+
+.am-input {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: var(--text-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  outline: none;
+  transition: border-color .2s;
+  box-sizing: border-box;
+}
+
+.am-input:focus { border-color: var(--color-theme); }
+
+/* ── captcha ── */
+.am-captcha {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.am-captcha-label {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.am-captcha-img {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  width: fit-content;
+}
+
+/* ── checkboxes ── */
+.am-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.am-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.am-chk { display: none; }
+
+.am-chk-box {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  margin-top: 1px;
+  position: relative;
+  transition: background .15s, border-color .15s;
+  background: var(--color-bg);
+}
+
+.am-chk:checked + .am-chk-box {
+  background: var(--color-theme);
+  border-color: var(--color-theme);
+}
+
+.am-chk:checked + .am-chk-box::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(40deg);
+}
+
+.am-chk-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+/* ── main button ── */
+.am-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-theme);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-md);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .2s, opacity .2s;
+}
+
+.am-btn:hover:not(:disabled) { background: var(--color-theme-hover); }
+
+.am-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* ── links ── */
+.am-link { color: var(--color-theme); text-decoration: none; }
+.am-link:hover { text-decoration: underline; }
+
+/* ── oferta ── */
+.am-oferta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── password field ── */
+.am-pass-wrap { position: relative; }
+.am-pass-wrap .am-input { padding-right: 44px; }
+
+.am-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  transition: color .15s;
+}
+
+.am-eye:hover { color: var(--color-text); }
+
+/* ── remember / forgot row ── */
+.am-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.am-forgot {
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── social buttons ── */
+.am-socials { padding-bottom: 4px; }
+
+.am-socials-title {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.am-socials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.am-soc {
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .15s, transform .1s;
+}
+
+.am-soc:hover  { opacity: .88; transform: translateY(-1px); }
+.am-soc:active { transform: translateY(0); }
+
+.am-soc-ya   { background: #FC3F1D; }
+.am-soc-mail { background: #005FF9; }
+.am-soc-vk   { background: #0077FF; }
+.am-soc-ok   { background: #EE8208; }
+
+/* ── bottom toggle ── */
+.am-switch-wrap {
+  padding: 20px 32px 28px;
+  text-align: center;
+}
+
+.am-switch-btn {
+  background: none;
+  border: none;
+  font-size: var(--text-sm);
+  color: var(--color-theme);
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity .15s;
+}
+
+.am-switch-btn:hover { opacity: .75; }

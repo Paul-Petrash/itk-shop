@@ -49,12 +49,23 @@ export default function CatalogFilters({ groups, priceMin, priceMax }) {
   const [collapsed, setCollapsed] = useState({});
   const [expanded, setExpanded] = useState({});
 
-  // Read initial state from URL
+  // Read initial state from URL; re-sync when URL changes externally (popstate / header tags)
   useEffect(() => {
-    const params = getParams();
-    const s = readState(params, groups, priceMin, priceMax);
-    setPrice(s.price);
-    setChecked(s.checked);
+    function syncFromUrl() {
+      const params = getParams();
+      const s = readState(params, groups, priceMin, priceMax);
+      setPrice(s.price);
+      setChecked(s.checked);
+    }
+    syncFromUrl();
+
+    // Слушаем внешние изменения фильтров
+    window.addEventListener('popstate', syncFromUrl);
+    window.addEventListener('catalog:filter', syncFromUrl);
+    return () => {
+      window.removeEventListener('popstate', syncFromUrl);
+      window.removeEventListener('catalog:filter', syncFromUrl);
+    }
   }, []);
 
   function push(newPrice, newChecked) {
@@ -66,15 +77,20 @@ export default function CatalogFilters({ groups, priceMin, priceMax }) {
 
   function handleCheck(groupId, value, e) {
     const next = { ...checked, [groupId]: new Set(checked[groupId]) };
-    if (e.target.checked) next[groupId].add(value);
+    if (e.target.checked) {
+      next[groupId].add(value);
+    }
     else next[groupId].delete(value);
     setChecked(next);
     push(price, next);
   }
 
+  //todo добавить debounce
   function handlePriceInput(field, val) {
     const num = parseFloat(val);
-    if (isNaN(num)) return;
+    if (isNaN(num)) {
+      return;
+    }
     const next = { ...price, [field]: num };
     setPrice(next);
     push(next, checked);

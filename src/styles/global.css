@@ -56,6 +56,19 @@
   white-space: nowrap;
 }
 
+html {
+  /* резервирует место под скроллбар всегда — страница не прыгает при открытии модалок */
+  scrollbar-gutter: stable;
+  /* фиксированная ширина скроллбара (Chrome / Edge / Safari) */
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 transparent;
+}
+
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #b0b0b0; }
+
 html,
 body {
   width: 100%;

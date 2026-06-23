@@ -1,0 +1,315 @@
+/* ── empty state ── */
+.cmp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.cmp-empty svg { opacity: .35; }
+
+.cmp-empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cmp-empty-sub { font-size: var(--text-md); }
+
+.cmp-empty-btn {
+  margin-top: 8px;
+  display: inline-block;
+  padding: 11px 28px;
+  background: var(--color-theme);
+  color: #fff;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background .2s;
+}
+
+.cmp-empty-btn:hover { background: var(--color-theme-hover); }
+
+/* ── page wrapper ── */
+.cmp-page {
+  padding: 24px 0 60px;
+}
+
+/* ── heading ── */
+.cmp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.cmp-head-left {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cmp-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cmp-count {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.cmp-head-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.cmp-diff-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cmp-diff-toggle input[type="checkbox"] {
+  width: 36px;
+  height: 20px;
+  appearance: none;
+  background: var(--color-border);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+
+.cmp-diff-toggle input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+
+.cmp-diff-toggle input[type="checkbox"]:checked {
+  background: var(--color-theme);
+}
+
+.cmp-diff-toggle input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+}
+
+.cmp-diff-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.cmp-clear-btn {
+  background: none;
+  border: none;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+
+.cmp-clear-btn:hover {
+  color: var(--color-theme);
+  background: color-mix(in srgb, var(--color-theme) 8%, transparent);
+}
+
+/* ── scroll wrapper ── */
+.cmp-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ── table ── */
+.cmp-table {
+  border-collapse: collapse;
+  min-width: 100%;
+  table-layout: fixed;
+}
+
+/* first column: sticky labels */
+.cmp-th-label,
+.cmp-prop-name {
+  position: sticky;
+  left: 0;
+  background: var(--color-bg);
+  z-index: 2;
+  width: 220px;
+  min-width: 220px;
+}
+
+.cmp-th-label {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cmp-prop-name {
+  padding: 12px 16px;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: 400;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+/* shadow line to separate sticky col */
+.cmp-prop-name::after,
+.cmp-th-label::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,.05), transparent);
+  pointer-events: none;
+}
+
+/* product columns */
+.cmp-th-product {
+  vertical-align: top;
+  width: 220px;
+  min-width: 200px;
+  padding: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.cmp-product-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 16px 20px;
+  position: relative;
+  gap: 10px;
+}
+
+.cmp-rm-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color .15s, border-color .15s;
+}
+
+.cmp-rm-btn:hover {
+  color: #f91155;
+  border-color: #f91155;
+}
+
+.cmp-product-img-wrap {
+  display: block;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.cmp-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform .3s;
+}
+
+.cmp-product-img-wrap:hover .cmp-product-img { transform: scale(1.05); }
+
+.cmp-product-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cmp-product-title {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  line-height: 1.4;
+  transition: color .15s;
+}
+
+.cmp-product-title:hover { color: var(--color-theme); }
+
+.cmp-cart-btn {
+  width: 100%;
+  background: var(--color-theme);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.cmp-cart-btn:hover { background: var(--color-theme-hover); }
+
+/* ── property rows ── */
+.cmp-prop-row:nth-child(even) td {
+  background: var(--color-surface);
+}
+
+.cmp-prop-row:nth-child(even) .cmp-prop-name {
+  background: var(--color-surface);
+}
+
+.cmp-prop-val {
+  padding: 12px 16px;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.cmp-no-diff {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+}

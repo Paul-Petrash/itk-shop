@@ -54,12 +54,48 @@ const {
   </div>
 
   <div class="pc-foot">
-    <button class="pc-btn" type="button" data-product-id={id != null ? String(id) : undefined}>В корзину</button>
+    <button
+      class="pc-btn"
+      type="button"
+      data-product-id={id != null ? String(id) : undefined}
+      data-product-title={title}
+      data-product-image={image}
+      data-product-price={String(price)}
+      data-product-href={href}
+    >В корзину</button>
     <div class="pc-act">
-      <button type="button" aria-label="В избранное">
+      <button
+        class="pc-fav-btn"
+        type="button"
+        aria-label="В избранное"
+        data-product-id={id != null ? String(id) : undefined}
+        data-product-title={title}
+        data-product-image={image}
+        data-product-price={String(price)}
+        data-product-href={href}
+        data-product-oldprice={oldPrice != null ? String(oldPrice) : undefined}
+        data-product-rating={rating != null ? String(rating) : undefined}
+        data-product-status={status}
+        data-product-article={article}
+        data-product-badge={badge}
+      >
         <Fragment set:html={heartSvg} />
       </button>
-      <button type="button" aria-label="Сравнить">
+      <button
+        class="pc-cmp-btn"
+        type="button"
+        aria-label="Сравнить"
+        data-product-id={id != null ? String(id) : undefined}
+        data-product-title={title}
+        data-product-image={image}
+        data-product-price={String(price)}
+        data-product-href={href}
+        data-product-oldprice={oldPrice != null ? String(oldPrice) : undefined}
+        data-product-rating={rating != null ? String(rating) : undefined}
+        data-product-status={status}
+        data-product-article={article}
+        data-product-badge={badge}
+      >
         <Fragment set:html={compareSvg} />
       </button>
     </div>

@@ -6,10 +6,10 @@ import lightningSvg from '@/assets/icons/lightning.svg?raw';
 import burgerSvg    from '@/assets/icons/burger.svg?raw';
 import searchSvg    from '@/assets/icons/search.svg?raw';
 import userSvg      from '@/assets/icons/user.svg?raw';
-import compareSvg   from '@/assets/icons/compare.svg?raw';
-import heartSvg     from '@/assets/icons/heart.svg?raw';
 import cartSvg      from '@/assets/icons/cart.svg?url';
-import Cart from '@/components/Cart';
+import Cart    from '@/components/Cart';
+import FavLink from '@/components/FavLink';
+import CmpLink from '@/components/CmpLink';
 ---
 
 <header class="h">
@@ -99,9 +99,9 @@ import Cart from '@/components/Cart';
         </form>
 
         <div class="ha">
-          <a href="#"><Fragment set:html={userSvg} /><span>Войти</span></a>
-          <a href="#"><Fragment set:html={compareSvg} /><span>Сравнение</span></a>
-          <a href="#"><Fragment set:html={heartSvg} /><span>Избранное</span></a>
+          <a href="#" class="js-auth-open"><Fragment set:html={userSvg} /><span>Войти</span></a>
+          <CmpLink client:load />
+          <FavLink client:load />
           <Cart cartSrc={cartSvg} client:load />
         </div>
 
@@ -113,20 +113,33 @@ import Cart from '@/components/Cart';
   <div class="h-b">
     <div class="wrap">
       <div class="tg">
-        <a href="#">Вода 19 литров</a>
-        <a href="#">Кулеры для воды</a>
-        <a href="#">Минеральная</a>
-        <a href="#">Питьевая</a>
-        <a href="#">Функциональная</a>
-        <a href="#">Щелочная</a>
-        <a href="#">Лечебная</a>
-        <a href="#">Детская</a>
-        <a href="#">Родниковая</a>
-        <a href="#">Природная</a>
-        <a href="#">Артезианская</a>
-        <a href="#">Кислородная</a>
+        <a href="/catalog/voda-pitevaya/?f_type=mineralnaya">Минеральная</a>
+        <a href="/catalog/voda-pitevaya/?f_type=pitevaya">Питьевая</a>
+        <a href="/catalog/voda-pitevaya/?f_type=detskaya">Детская</a>
+        <a href="/catalog/voda-pitevaya/?f_type=arteziansaya">Артезианская</a>
+        <a href="/catalog/voda-pitevaya/?f_type=rodnikovaya">Родниковая</a>
       </div>
     </div>
   </div>
 
 </header>
+
+<script>
+  document.querySelector('.js-auth-open')?.addEventListener('click', e => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('auth:open'));
+  });
+
+  const tg = document.querySelector<HTMLElement>('.tg');
+  if (tg) {
+    tg.addEventListener('click', e => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a');
+      if (!a) return;
+      const url = new URL(a.href);
+      if (url.pathname !== location.pathname) return; // другая страница — пусть браузер навигирует
+      e.preventDefault();
+      history.pushState(null, '', a.href);
+      window.dispatchEvent(new CustomEvent('catalog:filter'));
+    });
+  }
+</script>

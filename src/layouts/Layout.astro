@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import AuthModal from '@/components/AuthModal/AuthModal';
 
 interface Props {
   title?: string;
@@ -31,9 +32,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+    <AuthModal client:load />
   </body>
 </html>
 
 <script>
   import '@/scripts/cart-bus';
+  import '@/scripts/favorites-bus';
+  import '@/scripts/compare-bus';
 </script>
