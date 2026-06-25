@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import './CatalogFilters.css';
 
 const SHOW_LIMIT = 5;
 

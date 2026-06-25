@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import './FavoritesPage.css';
 
 const FAV_KEY  = 'itk_favorites';
 const META_KEY = 'itk_favorites_products';
@@ -36,16 +35,10 @@ export default function FavoritesPage() {
   }, []);
 
   function remove(id) {
-    window.dispatchEvent(new CustomEvent('favorites:request-remove', { detail: { id } }));
+    window.FavoritesBus.remove(id);
   }
 
   function addToCart(item) {
-    // favorites-bus doesn't need this; cart-bus listens to pc-btn click events.
-    // We dispatch the update event directly via a programmatic click isn't needed —
-    // instead dispatch cart:request-update after saving meta via the same pattern
-    // The pc-btn click event is handled by cart-bus, so we use a real button click.
-    // For programmatic add, dispatch a CustomEvent that cart-bus can handle.
-    // We need to save meta first.
     try {
       const raw   = localStorage.getItem('itk_cart_products');
       const store = raw ? JSON.parse(raw) : {};
@@ -54,7 +47,7 @@ export default function FavoritesPage() {
         localStorage.setItem('itk_cart_products', JSON.stringify(store));
       }
     } catch {}
-    window.dispatchEvent(new CustomEvent('cart:request-update', { detail: { id: item.id, qty: 1 } }));
+    window.CartBus.update(item.id, 1);
   }
 
   function clearAll() {

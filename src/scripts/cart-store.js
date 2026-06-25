@@ -1,9 +1,8 @@
 const STORAGE_KEY = 'itk_cart';
 
-// in-memory state
-const cart = new Map<string, number>(loadFromStorage());
+const cart = new Map(loadFromStorage());
 
-function loadFromStorage(): [string, number][] {
+function loadFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -12,17 +11,17 @@ function loadFromStorage(): [string, number][] {
   }
 }
 
-function persist(): void {
+function persist() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...cart]));
 }
 
-function totalCount(): number {
+function totalCount() {
   let n = 0;
   cart.forEach(q => (n += q));
   return n;
 }
 
-function emit(): void {
+function emit() {
   window.dispatchEvent(
     new CustomEvent('cart:update', {
       detail: {
@@ -34,29 +33,27 @@ function emit(): void {
 }
 
 export const CartStore = {
-  /** Update quantity. qty <= 0 removes item. Does not broadcast — use CartBus for that. */
-  update(id: string, qty: number): void {
+  update(id, qty) {
     qty > 0 ? cart.set(id, qty) : cart.delete(id);
     persist();
     emit();
   },
 
-  add(id: string): void {
+  add(id) {
     this.update(id, (cart.get(id) ?? 0) + 1);
   },
 
-  remove(id: string): void {
+  remove(id) {
     this.update(id, 0);
   },
 
-  qty(id: string): number {
+  qty(id) {
     return cart.get(id) ?? 0;
   },
 
   count: totalCount,
 
-  /** Read-only snapshot for initialisation */
-  entries(): IterableIterator<[string, number]> {
+  entries() {
     return cart.entries();
   },
 };

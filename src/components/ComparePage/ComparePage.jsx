@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import './ComparePage.css';
 
 const CMP_KEY  = 'itk_compare';
 const META_KEY = 'itk_compare_products';
@@ -61,7 +60,7 @@ export default function ComparePage() {
   }, []);
 
   function remove(id) {
-    window.dispatchEvent(new CustomEvent('compare:request-remove', { detail: { id } }));
+    window.CompareBus.remove(id);
   }
 
   function addToCart(item) {
@@ -73,7 +72,7 @@ export default function ComparePage() {
         localStorage.setItem('itk_cart_products', JSON.stringify(store));
       }
     } catch {}
-    window.dispatchEvent(new CustomEvent('cart:request-update', { detail: { id: item.id, qty: 1 } }));
+    window.CartBus.update(item.id, 1);
   }
 
   function clearAll() {

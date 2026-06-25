@@ -1,141 +1,153 @@
 ---
-import './Header.css';
-import logoSvg      from '@/assets/logo.svg?url';
-import chevronSvg   from '@/assets/icons/chevron.svg?raw';
+import criticalStyles from './Header.css?inline';
+import logoSvg from '@/assets/logo.svg?url';
+import chevronSvg from '@/assets/icons/chevron.svg?raw';
 import lightningSvg from '@/assets/icons/lightning.svg?raw';
-import burgerSvg    from '@/assets/icons/burger.svg?raw';
-import searchSvg    from '@/assets/icons/search.svg?raw';
-import userSvg      from '@/assets/icons/user.svg?raw';
-import cartSvg      from '@/assets/icons/cart.svg?url';
+import burgerSvg from '@/assets/icons/burger.svg?raw';
+import searchSvg from '@/assets/icons/search.svg?raw';
+import userSvg from '@/assets/icons/user.svg?raw';
+import cartSvg from '@/assets/icons/cart.svg?url';
 import HeaderUI from '@/components/HeaderUI';
 ---
+<style set:html={criticalStyles} is:inline></style>
 
 <header class="h">
 
-  <!-- top: nav + phone -->
-  <div class="h-t">
-    <div class="wrap">
-      <div class="h-tr">
+    <!-- top: nav + phone -->
+    <div class="h-t">
+        <div class="wrap h-tw">
+            <nav class="h-tr">
+                <a href="#">Мобильное приложение</a>
 
-        <nav>
-          <a href="#">Мобильное приложение</a>
+                <div class="ni">
+                    <a href="#">Компания
+                        <Fragment set:html={chevronSvg}/>
+                    </a>
+                    <div class="drop">
+                        <ul>
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="#">Контакты</a></li>
+                            <li><a href="#">Вакансии</a></li>
+                            <li><a href="#">Отзывы</a></li>
+                            <li><a href="#">Сертификаты</a></li>
+                            <li><a href="#">Блог</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-          <div class="ni">
-            <a href="#">Компания <Fragment set:html={chevronSvg} /></a>
-            <div class="drop">
-              <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Контакты</a></li>
-                <li><a href="#">Вакансии</a></li>
-                <li><a href="#">Отзывы</a></li>
-                <li><a href="#">Сертификаты</a></li>
-                <li><a href="#">Блог</a></li>
-              </ul>
+                <a href="#">Доставка</a>
+                <a href="#">Оплата</a>
+
+                <div class="ni">
+                    <a href="#">
+                        <Fragment set:html={lightningSvg}/>
+                        Акции
+                        <Fragment set:html={chevronSvg}/>
+                    </a>
+                    <div class="drop">
+                        <ul>
+                            <li><a href="#">Для новых клиентов</a></li>
+                            <li><a href="#">Для всех клиентов</a></li>
+                            <li><a href="#">Для школ и учебных учреждений</a></li>
+                            <li><a href="#">Самое выгодное</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="ni">
+                    <a href="#">Услуги
+                        <Fragment set:html={chevronSvg}/>
+                    </a>
+                    <div class="drop">
+                        <ul>
+                            <li><a href="#">Аренда кулеров</a></li>
+                            <li><a href="#">Бесплатная аренда кулера</a></li>
+                            <li><a href="#">Ремонт кулеров</a></li>
+                            <li><a href="#">Санитарная обработка</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="#">Поддержка</a>
+            </nav>
+            <div class="ph">
+                <a href="tel:88001111111">8 800 111-11-11</a>
+                <a href="#" class="cb">Заказать звонок</a>
             </div>
-          </div>
+        </div>
+    </div>
 
-          <a href="#">Доставка</a>
-          <a href="#">Оплата</a>
+    <!-- main: logo + catalog + search + actions -->
+    <div class="h-m">
+        <div class="wrap">
+            <div class="h-mr">
 
-          <div class="ni">
-            <a href="#"><Fragment set:html={lightningSvg} />Акции <Fragment set:html={chevronSvg} /></a>
-            <div class="drop">
-              <ul>
-                <li><a href="#">Для новых клиентов</a></li>
-                <li><a href="#">Для всех клиентов</a></li>
-                <li><a href="#">Для школ и учебных учреждений</a></li>
-                <li><a href="#">Самое выгодное</a></li>
-              </ul>
+                <div class="h-ml">
+                    <a href="/" class="lg" aria-label="На главную">
+                        <img src={logoSvg} alt="ITK Shop" width="138" height="50" decoding="async"
+                             fetchpriority="high"/>
+                    </a>
+                    <button class="cat" type="button">
+                        <Fragment set:html={burgerSvg}/>
+                        <span>Каталог</span>
+                    </button>
+                </div>
+
+                <form class="sf" action="/catalog/" method="get">
+                    <label for="hs" class="sr">Поиск</label>
+                    <input id="hs" type="text" name="q" placeholder="Найти" maxlength="50" autocomplete="off"/>
+                    <button type="submit" aria-label="Найти">
+                        <Fragment set:html={searchSvg}/>
+                    </button>
+                </form>
+
+                <div class="ha">
+                    <a href="#" class="js-auth-open">
+                        <Fragment set:html={userSvg}/>
+                        <span>Войти</span></a>
+                    <HeaderUI cartSrc={cartSvg} client:load/>
+                </div>
+
             </div>
-          </div>
+        </div>
+    </div>
 
-          <div class="ni">
-            <a href="#">Услуги <Fragment set:html={chevronSvg} /></a>
-            <div class="drop">
-              <ul>
-                <li><a href="#">Аренда кулеров</a></li>
-                <li><a href="#">Бесплатная аренда кулера</a></li>
-                <li><a href="#">Ремонт кулеров</a></li>
-                <li><a href="#">Санитарная обработка</a></li>
-              </ul>
+    <!-- bottom: category tags -->
+    <div class="h-b">
+        <div class="wrap">
+            <div class="tg">
+                <a href="/catalog/voda-pitevaya/?f_type=mineralnaya">Минеральная</a>
+                <a href="/catalog/voda-pitevaya/?f_type=pitevaya">Питьевая</a>
+                <a href="/catalog/voda-pitevaya/?f_type=detskaya">Детская</a>
+                <a href="/catalog/voda-pitevaya/?f_type=arteziansaya">Артезианская</a>
+                <a href="/catalog/voda-pitevaya/?f_type=rodnikovaya">Родниковая</a>
             </div>
-          </div>
-
-          <a href="#">Поддержка</a>
-        </nav>
-
-        <div class="ph">
-          <a href="tel:88001111111">8 800 111-11-11</a>
-          <a href="#" class="cb">Заказать звонок</a>
         </div>
-
-      </div>
     </div>
-  </div>
-
-  <!-- main: logo + catalog + search + actions -->
-  <div class="h-m">
-    <div class="wrap">
-      <div class="h-mr">
-
-        <div class="h-ml">
-          <a href="/" class="lg" aria-label="На главную">
-            <img src={logoSvg} alt="ITK Shop" width="138" height="50" decoding="async" fetchpriority="high" />
-          </a>
-          <button class="cat" type="button">
-            <Fragment set:html={burgerSvg} />
-            <span>Каталог</span>
-          </button>
-        </div>
-
-        <form class="sf" action="/catalog/" method="get">
-          <label for="hs" class="sr">Поиск</label>
-          <input id="hs" type="text" name="q" placeholder="Найти" maxlength="50" autocomplete="off" />
-          <button type="submit" aria-label="Найти">
-            <Fragment set:html={searchSvg} />
-          </button>
-        </form>
-
-        <div class="ha">
-          <a href="#" class="js-auth-open"><Fragment set:html={userSvg} /><span>Войти</span></a>
-          <HeaderUI cartSrc={cartSvg} client:load />
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- bottom: category tags -->
-  <div class="h-b">
-    <div class="wrap">
-      <div class="tg">
-        <a href="/catalog/voda-pitevaya/?f_type=mineralnaya">Минеральная</a>
-        <a href="/catalog/voda-pitevaya/?f_type=pitevaya">Питьевая</a>
-        <a href="/catalog/voda-pitevaya/?f_type=detskaya">Детская</a>
-        <a href="/catalog/voda-pitevaya/?f_type=arteziansaya">Артезианская</a>
-        <a href="/catalog/voda-pitevaya/?f_type=rodnikovaya">Родниковая</a>
-      </div>
-    </div>
-  </div>
 
 </header>
 
 <script>
-  document.querySelector('.js-auth-open')?.addEventListener('click', e => {
-    e.preventDefault();
-    window.dispatchEvent(new CustomEvent('auth:open'));
-  });
-
-  const tg = document.querySelector<HTMLElement>('.tg');
-  if (tg) {
-    tg.addEventListener('click', e => {
-      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a');
-      if (!a) return;
-      const url = new URL(a.href);
-      if (url.pathname !== location.pathname) return; // другая страница — пусть браузер навигирует
-      e.preventDefault();
-      history.pushState(null, '', a.href);
-      window.dispatchEvent(new CustomEvent('catalog:filter'));
+    //логика применения каталог фильтра
+    document.querySelector('.js-auth-open')?.addEventListener('click', e => {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent('auth:open'));
     });
-  }
+
+    const tg = document.querySelector<HTMLElement>('.tg');
+    if (tg) {
+        tg.addEventListener('click', e => {
+            const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a');
+            if (!a) {
+                return;
+            }
+            const url = new URL(a.href);
+            if (url.pathname !== location.pathname) {
+                return;
+            } // другая страница — пусть браузер навигирует
+            e.preventDefault();
+            history.pushState(null, '', a.href);
+            window.dispatchEvent(new CustomEvent('catalog:filter'));
+        });
+    }
 </script>

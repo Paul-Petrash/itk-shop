@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import './AuthModal.css';
 
 import closeSvg   from '@/assets/icons/close.svg?raw';
 import eyeSvg     from '@/assets/icons/eye.svg?raw';

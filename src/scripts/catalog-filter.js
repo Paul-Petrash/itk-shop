@@ -1,26 +1,10 @@
-// Reserved data attributes — not filter meta
 const RESERVED = new Set(['id', 'price', 'rating']);
 
-interface IndexedItem {
-  el: HTMLElement;
-  price: number;
-  rating: number;
-  meta: Record<string, string>; // brand → 'arhyz', type → 'pitevaya', …
-}
-
-interface FilterState {
-  priceMin: number;
-  priceMax: number;
-  sort: string;
-  checked: Record<string, Set<string>>;
-}
-
-// Built once on page load — O(1) access during filtering
-const items: IndexedItem[] = Array.from(
-  document.querySelectorAll<HTMLElement>('[data-id]')
+const items = Array.from(
+  document.querySelectorAll('[data-id]')
 ).map(el => ({
   el,
-  price: Number(el.dataset.price),
+  price:  Number(el.dataset.price),
   rating: Number(el.dataset.rating),
   meta: Object.fromEntries(
     Object.entries(el.dataset)
@@ -29,9 +13,9 @@ const items: IndexedItem[] = Array.from(
   ),
 }));
 
-function buildState(): FilterState {
+function buildState() {
   const p = new URLSearchParams(window.location.search);
-  const checked: Record<string, Set<string>> = {};
+  const checked = {};
   p.forEach((val, key) => {
     if (key.startsWith('f_')) checked[key.slice(2)] = new Set(val.split(','));
   });
@@ -43,7 +27,7 @@ function buildState(): FilterState {
   };
 }
 
-function applyFilter(state: FilterState): void {
+function applyFilter(state) {
   let visible = 0;
 
   for (const item of items) {
@@ -52,7 +36,6 @@ function applyFilter(state: FilterState): void {
     if (show) {
       for (const [groupId, values] of Object.entries(state.checked)) {
         if (values.size === 0) continue;
-        // support comma-separated multi-values: "pitevaya,mineralnaya"
         const raw = item.meta[groupId];
         if (!raw) { show = false; break; }
         const itemVals = raw.includes(',') ? raw.split(',') : [raw];
@@ -67,7 +50,7 @@ function applyFilter(state: FilterState): void {
   updateUI(visible, state.sort);
 }
 
-function applySort(sort: string): void {
+function applySort(sort) {
   if (!sort) return;
   const grid = document.getElementById('catalog-grid');
   if (!grid) return;
@@ -84,22 +67,21 @@ function applySort(sort: string): void {
   visible.forEach(i => grid.appendChild(i.el));
 }
 
-function updateUI(visible: number, sort = ''): void {
+function updateUI(visible, sort = '') {
   const countEl = document.getElementById('catalog-count');
   if (countEl) countEl.textContent = String(visible);
 
-  const emptyEl = document.getElementById('catalog-empty') as HTMLElement | null;
+  const emptyEl = document.getElementById('catalog-empty');
   if (emptyEl) emptyEl.hidden = visible > 0;
 
   applySort(sort);
 }
 
-function run(): void {
+function run() {
   applyFilter(buildState());
 }
 
-// Sync select with URL and wire up change handler
-const sortEl = document.getElementById('catalog-sort') as HTMLSelectElement | null;
+const sortEl = document.getElementById('catalog-sort');
 if (sortEl) {
   sortEl.value = new URLSearchParams(window.location.search).get('sort') ?? '';
   sortEl.addEventListener('change', () => {

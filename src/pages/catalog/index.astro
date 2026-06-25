@@ -4,6 +4,7 @@ import Header from '@/components/ui/Header/Header.astro';
 import Footer from '@/components/ui/Footer/Footer.astro';
 import CategoryCard from '@/components/catalog/CategoryCard/CategoryCard.astro';
 import { getCategories } from '@/lib/api';
+import './catalog.css';
 
 const categories = await getCategories();
 ---
@@ -37,36 +38,3 @@ const categories = await getCategories();
   </main>
   <Footer />
 </Layout>
-
-<style>
-  .breadcrumb {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    padding: 1rem 0;
-    font-size: 0.875rem;
-    color: var(--color-text-muted, #666);
-  }
-
-  .breadcrumb a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .breadcrumb a:hover {
-    text-decoration: underline;
-  }
-
-  .catalog-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin: 0 0 1.5rem;
-  }
-
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-    padding-bottom: 3rem;
-  }
-</style>

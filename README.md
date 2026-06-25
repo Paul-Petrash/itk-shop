@@ -19,7 +19,36 @@ pnpm preview  # предпросмотр собранного сайта
 
 Скопируй `.env.example` → `.env` и задай значения. Для локальной разработки `PUBLIC_API_URL=mock` — запрос к серверу не нужен.
 
+
+## Build 
+
+
+# Разбивка стилей
+```md 
+
+Принудительный инлайн конкретного CSS:
 ---
+// Header.astro — этот импорт попадёт в инлайн <style> на странице
+import criticalStyles from './critical.css?inline';
+  ---
+  <style set:html={criticalStyles} is:inline></style>
+
+---
+
+
+  <style> в .astro — всегда инлайн (scoped):
+  <style>
+    /* этот блок всегда идёт inline, scoped к компоненту */
+    .h { background: red; }
+  </style>
+
+  <style is:global> — инлайн, глобальный:
+  <style is:global>
+    /* инлайн без scoping */
+  </style>
+```
+
+
 
 ## Структура проекта
 

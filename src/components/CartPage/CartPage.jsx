@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'preact/hooks';
-import './CartPage.css';
 
 const CART_KEY = 'itk_cart';
 const META_KEY = 'itk_cart_products';
@@ -79,11 +78,11 @@ export default function CartPage() {
   }, []);
 
   function setQty(id, qty) {
-    window.dispatchEvent(new CustomEvent('cart:request-update', { detail: { id, qty: Math.max(1, qty) } }));
+    window.CartBus.update(id, Math.max(1, qty));
   }
 
   function remove(id) {
-    window.dispatchEvent(new CustomEvent('cart:request-remove', { detail: { id } }));
+    window.CartBus.remove(id);
   }
 
   const goodsTotal = items.reduce((s, i) => s + (i.price || 0) * i.qty, 0);

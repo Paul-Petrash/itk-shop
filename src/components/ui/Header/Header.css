@@ -2,13 +2,16 @@
 .h { background: var(--color-bg); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 
 /* ── top bar ── */
-.h-t { border-bottom: 1px solid var(--color-border); }
+.h-t { border-bottom: 1px solid var(--color-border);  }
 
-.h-tr {
+.h-tw {
+  gap: 24px; display: flex; flex-wrap: wrap
+}
+nav.h-tr {
   display: flex;
   align-items: center;
   height: 40px;
-  gap: 24px;
+
 }
 
 .h nav {
@@ -32,12 +35,13 @@
 .h nav a:hover { color: var(--color-theme); }
 
 /* nav dropdown */
-.ni { position: relative; }
+.ni { position: relative; line-height: 40px; }
 
 .ni .drop {
   display: none;
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% - 5px);
+  margin-top: 5px;
   left: 0;
   z-index: 200;
   background: var(--color-bg);
@@ -48,6 +52,7 @@
 }
 
 .ni:hover .drop { display: block; }
+.ni .drop:hover { display: block; }
 
 .drop ul { list-style: none; }
 
@@ -253,7 +258,7 @@
 .cart-drop {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 5px);
   right: 0;
   z-index: 300;
   background: var(--color-bg);

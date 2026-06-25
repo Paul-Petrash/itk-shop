@@ -1,12 +1,20 @@
 import { CompareStore } from './compare-store';
 
+const CompareBus = {
+  toggle(id) { CompareStore.toggle(id); syncButtons(); },
+  remove(id) { CompareStore.remove(id); syncButtons(); },
+  has:    CompareStore.has.bind(CompareStore),
+};
+
+window.CompareBus = CompareBus;
+
 document.addEventListener('click', e => {
-  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.pc-cmp-btn[data-product-id]');
+  const btn = e.target.closest('.pc-cmp-btn[data-product-id]');
   if (!btn?.dataset.productId) return;
 
   const id = btn.dataset.productId;
 
-  if (!CompareStore.has(id)) {
+  if (!CompareBus.has(id)) {
     const { productTitle, productImage, productPrice, productHref,
             productOldprice, productRating, productStatus, productArticle, productBadge } = btn.dataset;
     if (productTitle) {
@@ -24,18 +32,12 @@ document.addEventListener('click', e => {
     }
   }
 
-  CompareStore.toggle(id);
-  syncButtons();
+  CompareBus.toggle(id);
 });
 
-window.addEventListener('compare:request-remove', ((e: CustomEvent<{ id: string }>) => {
-  CompareStore.remove(e.detail.id);
-  syncButtons();
-}) as EventListener);
-
-function syncButtons(): void {
-  document.querySelectorAll<HTMLButtonElement>('.pc-cmp-btn[data-product-id]').forEach(btn => {
-    btn.classList.toggle('is-active', CompareStore.has(btn.dataset.productId!));
+function syncButtons() {
+  document.querySelectorAll('.pc-cmp-btn[data-product-id]').forEach(btn => {
+    btn.classList.toggle('is-active', CompareBus.has(btn.dataset.productId));
   });
 }
 

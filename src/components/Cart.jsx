@@ -39,7 +39,7 @@ export default function Cart({ cartSrc }) {
   }, []);
 
   function remove(id) {
-    window.dispatchEvent(new CustomEvent('cart:request-remove', { detail: { id } }));
+    window.CartBus.remove(id);
   }
 
   const total = items.reduce((s, i) => s + (i.price || 0) * i.qty, 0);

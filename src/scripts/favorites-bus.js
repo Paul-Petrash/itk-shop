@@ -1,12 +1,20 @@
 import { FavoritesStore } from './favorites-store';
 
+const FavoritesBus = {
+  toggle(id) { FavoritesStore.toggle(id); syncButtons(); },
+  remove(id) { FavoritesStore.remove(id); syncButtons(); },
+  has:    FavoritesStore.has.bind(FavoritesStore),
+};
+
+window.FavoritesBus = FavoritesBus;
+
 document.addEventListener('click', e => {
-  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.pc-fav-btn[data-product-id]');
+  const btn = e.target.closest('.pc-fav-btn[data-product-id]');
   if (!btn?.dataset.productId) return;
 
   const id = btn.dataset.productId;
 
-  if (!FavoritesStore.has(id)) {
+  if (!FavoritesBus.has(id)) {
     const { productTitle, productImage, productPrice, productHref,
             productOldprice, productRating, productStatus, productArticle, productBadge } = btn.dataset;
     if (productTitle) {
@@ -24,18 +32,12 @@ document.addEventListener('click', e => {
     }
   }
 
-  FavoritesStore.toggle(id);
-  syncButtons();
+  FavoritesBus.toggle(id);
 });
 
-window.addEventListener('favorites:request-remove', ((e: CustomEvent<{ id: string }>) => {
-  FavoritesStore.remove(e.detail.id);
-  syncButtons();
-}) as EventListener);
-
-function syncButtons(): void {
-  document.querySelectorAll<HTMLButtonElement>('.pc-fav-btn[data-product-id]').forEach(btn => {
-    btn.classList.toggle('is-active', FavoritesStore.has(btn.dataset.productId!));
+function syncButtons() {
+  document.querySelectorAll('.pc-fav-btn[data-product-id]').forEach(btn => {
+    btn.classList.toggle('is-active', FavoritesBus.has(btn.dataset.productId));
   });
 }
 
